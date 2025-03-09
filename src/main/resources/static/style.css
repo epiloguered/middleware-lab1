@@ -1,53 +1,127 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --background-color: #f5f6fa;
+    --card-bg: #ffffff;
 }
 
-.container {
-    width: 100%;
-    max-width: 400px;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui;
+    background-color: var(--background-color);
+}
+
+.chat-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    background: var(--card-bg);
+    border-radius: 12px;
     padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+/* 主内容区域 */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 通用卡片样式 */
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+/* 头部样式 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 h2, h3 {
-    margin: 10px 0;
+    color: var(--primary-color);
+    margin: 0 0 15px 0;
+}
+
+/* 输入组样式 */
+.input-group {
+    margin-bottom: 15px;
 }
 
 input {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
+    background: var(--secondary-color);
     color: white;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: opacity 0.3s;
 }
 
 button:hover {
-    background-color: #45a049;
+    opacity: 0.9;
 }
 
+/* 消息区域 */
 #messages {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #e2e2e2;
-    border-radius: 4px;
-    height: 200px;
+    height: 400px;
     overflow-y: auto;
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #eee;
+}
+
+/* 在线用户列表 */
+#onlineUsers {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    transition: background 0.2s;
+}
+
+.user-item:hover {
+    background: #f8f9fa;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .chat-container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .sidebar {
+        order: 2;
+    }
 }

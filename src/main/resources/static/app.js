@@ -1,6 +1,11 @@
 let userId = "";
 let webSocket = null;
 
+
+function logout() {
+    localStorage.removeItem('userId');
+    window.location.href = 'index.html';
+}
 // 登录逻辑
 function login() {
     userId = document.getElementById('userId').value;
