@@ -126,6 +126,7 @@ function joinGroup() {
         alert("请输入群名。");
         return;
     }
+
     fetch(`/user/joinGroup?groupName=${groupName}&userId=${userId}`, { method: 'POST' })
         .then(response => response.text())
         .then(data => alert(data));
