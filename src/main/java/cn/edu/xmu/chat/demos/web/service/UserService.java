@@ -1,4 +1,4 @@
-package cn.edu.xmu.chat.demos.web;
+package cn.edu.xmu.chat.demos.web.service;
 
 import org.springframework.web.socket.WebSocketSession;
 import java.io.IOException;

@@ -1,5 +1,6 @@
-package cn.edu.xmu.chat.demos.web;
+package cn.edu.xmu.chat.demos.web.handler;
 
+import cn.edu.xmu.chat.demos.web.service.UserService;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;

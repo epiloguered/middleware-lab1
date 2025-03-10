@@ -1,5 +1,7 @@
-package cn.edu.xmu.chat.demos.web;
+package cn.edu.xmu.chat.demos.web.config;
 
+import cn.edu.xmu.chat.demos.web.handler.MyWebSocketHandler;
+import cn.edu.xmu.chat.demos.web.service.UserService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;

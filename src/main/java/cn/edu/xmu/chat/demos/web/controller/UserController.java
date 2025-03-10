@@ -1,5 +1,8 @@
-package cn.edu.xmu.chat.demos.web;
+package cn.edu.xmu.chat.demos.web.controller;
 
+import cn.edu.xmu.chat.demos.web.service.GroupService;
+import cn.edu.xmu.chat.demos.web.handler.MessageSender;
+import cn.edu.xmu.chat.demos.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

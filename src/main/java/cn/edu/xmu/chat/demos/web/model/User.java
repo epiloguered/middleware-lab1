@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.edu.xmu.chat.demos.web;
+package cn.edu.xmu.chat.demos.web.model;
 
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>

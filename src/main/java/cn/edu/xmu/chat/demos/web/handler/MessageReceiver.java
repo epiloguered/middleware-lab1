@@ -1,5 +1,7 @@
-package cn.edu.xmu.chat.demos.web;
+package cn.edu.xmu.chat.demos.web.handler;
 
+import cn.edu.xmu.chat.demos.web.service.GroupService;
+import cn.edu.xmu.chat.demos.web.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;

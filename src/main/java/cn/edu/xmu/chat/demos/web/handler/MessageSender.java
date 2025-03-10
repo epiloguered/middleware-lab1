@@ -1,4 +1,4 @@
-package cn.edu.xmu.chat.demos.web;
+package cn.edu.xmu.chat.demos.web.handler;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 

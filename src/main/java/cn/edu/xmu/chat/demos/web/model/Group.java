@@ -1,4 +1,4 @@
-package cn.edu.xmu.chat.demos.web;
+package cn.edu.xmu.chat.demos.web.model;
 
 import java.util.List;
 
