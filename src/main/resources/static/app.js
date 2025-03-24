@@ -30,6 +30,7 @@ window.onload = function() {
 
         // 初始化 WebSocket（或通过 AJAX 获取实时数据）
         initializeWebSocket();
+
     }
 };
 
@@ -42,6 +43,7 @@ function initializeWebSocket() {
 
     webSocket.onmessage = function(event) {
         displayMessage(event.data);
+        showOnlineUsers();
     };
 
     webSocket.onerror = function(error) {
@@ -66,6 +68,12 @@ function sendPrivateMessage() {
         alert("Please enter a valid receiver ID and message.");
         return;
     }
+    if(receiverId === 'AI')
+        fetch('/aiChat?msg='+message, )
+        .then(response => response.text())
+        .then(data => {
+            displayMessage(data);  // 显示发送的消息
+        });
 
     // 发送消息到后端 API
     fetch(`/user/privateChat?senderId=${userId}&receiverId=${receiverId}&message=${message}`, {
