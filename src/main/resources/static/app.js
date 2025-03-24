@@ -145,3 +145,21 @@ function showGroupList() {
             });
         });
 }
+function loadMessageHistory(type, id) {
+    fetch(`/user/messageHistory?type=${type}&id=${id}`)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(msg => {
+                displayMessage(msg); // 假设已有 displayMessage 函数用于显示消息
+            });
+        });
+}
+
+function loadPrivateChatHistory(receiverId) {
+    const id = userId < receiverId ? userId + "_" + receiverId : receiverId + "_" + userId;
+    loadMessageHistory("private", id);
+}
+
+function loadGroupChatHistory(groupName) {
+    loadMessageHistory("group", groupName);
+}

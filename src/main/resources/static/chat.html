@@ -50,6 +50,7 @@
                 <div style="display: flex; gap: 10px;">
                     <input type="text" id="privateMessage" placeholder="输入消息" style="flex:1">
                     <button onclick="sendPrivateMessage()">发送</button>
+                    <button onclick="loadPrivateChatHistory(document.getElementById('receiverId').value)">加载历史</button>
                 </div>
             </div>
         </div>
@@ -61,6 +62,7 @@
                 <div style="display: flex; gap: 10px;">
                     <input type="text" id="groupMessage" placeholder="输入消息" style="flex:1">
                     <button onclick="sendGroupMessage()">发送</button>
+                    <button onclick="loadGroupChatHistory(document.getElementById('groupName').value)">加载历史</button>
                 </div>
             </div>
         </div>

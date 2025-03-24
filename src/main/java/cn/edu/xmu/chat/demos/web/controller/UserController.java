@@ -6,6 +6,10 @@ import cn.edu.xmu.chat.demos.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -60,5 +64,20 @@ public class UserController {
         String jsonMessage = String.format("{\"sender\":\"%s\", \"group\":\"%s\", \"content\":\"%s\"}", senderId, groupName, message);
         messageSender.sendMessage("groupChatQueue", jsonMessage);
         return "群消息已发送!";
+    }
+
+    @GetMapping("/messageHistory")
+    public List<String> getMessageHistory(@RequestParam String type, @RequestParam String id) {
+        String fileName = type.equals("private") ? "private_" + id + ".txt" : "group_" + id + ".txt";
+        List<String> messages = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                messages.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return messages;
     }
 }

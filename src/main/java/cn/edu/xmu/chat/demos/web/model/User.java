@@ -16,9 +16,7 @@
 
 package cn.edu.xmu.chat.demos.web.model;
 
-/**
- * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
- */
+
 public class User {
     private String id;
     private String username;
