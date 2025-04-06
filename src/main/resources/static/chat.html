@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>聊天室</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -47,8 +48,16 @@
             <h3>私聊</h3>
             <div class="input-group">
                 <input type="text" id="receiverId" placeholder="接收者ID">
-                <div style="display: flex; gap: 10px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
                     <input type="text" id="privateMessage" placeholder="输入消息" style="flex:1">
+                    <select id="targetLangPrivate">
+                        <option value="en">英语</option>
+                        <option value="zh">中文</option>
+                        <option value="jp">日语</option>
+                    </select>
+                    <label style="display: flex; align-items: center;">
+                        <input type="checkbox" id="translatePrivate"> 翻译
+                    </label>
                     <button onclick="sendPrivateMessage()">发送</button>
                     <button onclick="loadPrivateChatHistory(document.getElementById('receiverId').value)">加载历史</button>
                 </div>
@@ -59,8 +68,16 @@
             <h3>群聊</h3>
             <div class="input-group">
                 <input type="text" id="groupName" placeholder="群名称">
-                <div style="display: flex; gap: 10px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
                     <input type="text" id="groupMessage" placeholder="输入消息" style="flex:1">
+                    <select id="targetLangGroup">
+                        <option value="en">英语</option>
+                        <option value="zh">中文</option>
+                        <option value="jp">日语</option>
+                    </select>
+                    <label style="display: flex; align-items: center;">
+                        <input type="checkbox" id="translateGroup"> 翻译
+                    </label>
                     <button onclick="sendGroupMessage()">发送</button>
                     <button onclick="loadGroupChatHistory(document.getElementById('groupName').value)">加载历史</button>
                 </div>

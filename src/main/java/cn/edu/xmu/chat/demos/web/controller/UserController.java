@@ -2,7 +2,9 @@ package cn.edu.xmu.chat.demos.web.controller;
 
 import cn.edu.xmu.chat.demos.web.service.GroupService;
 import cn.edu.xmu.chat.demos.web.handler.MessageSender;
+import cn.edu.xmu.chat.demos.web.service.TranslateService;
 import cn.edu.xmu.chat.demos.web.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,21 +13,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
     private final MessageSender messageSender;
 
+    private final TranslateService translateService;
     @Autowired
     private UserService userService;
 
     private GroupService groupService;
 
-    public UserController(MessageSender messageSender, UserService userService, GroupService groupService) {
+
+
+    public UserController(MessageSender messageSender, UserService userService, GroupService groupService, TranslateService translateService) {
         this.messageSender = messageSender;
         this.userService = userService;
         this.groupService = groupService;
+        this.translateService = translateService;
     }
     @GetMapping("/onlineUsers")
     public List<String> getOnlineUsers() {
@@ -79,5 +86,20 @@ public class UserController {
             e.printStackTrace();
         }
         return messages;
+    }
+    @PostMapping("/translate")
+    public String translate(@RequestParam String text,
+                            @RequestParam String sourceLang,
+                            @RequestParam String targetLang) {
+        try {
+            String response = translateService.translate(text, sourceLang, targetLang);
+            // 解析JSON响应
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> map = mapper.readValue(response, Map.class);
+            List<Map<String, String>> transResult = (List<Map<String, String>>) map.get("trans_result");
+            return transResult.get(0).get("dst");
+        } catch (Exception e) {
+            return "翻译失败: " + e.getMessage();
+        }
     }
 }

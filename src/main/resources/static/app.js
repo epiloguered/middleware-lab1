@@ -63,46 +63,80 @@ function displayMessage(message) {
 function sendPrivateMessage() {
     const receiverId = document.getElementById('receiverId').value;
     const message = document.getElementById('privateMessage').value;
+    const translate = document.getElementById('translatePrivate').checked;
+    const targetLang = document.getElementById('targetLangPrivate').value;
 
     if (!receiverId || !message) {
         alert("Please enter a valid receiver ID and message.");
         return;
     }
+
     if(receiverId === 'AI')
         fetch('/aiChat?msg='+message, )
         .then(response => response.text())
         .then(data => {
             displayMessage(data);  // 显示发送的消息
         });
-
-    // 发送消息到后端 API
-    fetch(`/user/privateChat?senderId=${userId}&receiverId=${receiverId}&message=${message}`, {
-        method: 'POST'
-    }).then(response => {
-        return response.text();
-    }).then(data => {
-        displayMessage(data);  // 显示发送的消息
-    });
+    if (translate) {
+        fetch(`/user/translate?text=${encodeURIComponent(message)}&sourceLang=auto&targetLang=${targetLang}`, {
+            method: 'POST'
+        })
+            .then(response => response.text())
+            .then(translatedMessage => {
+                sendMessageToServer(receiverId, translatedMessage, 'private');
+            })
+            .catch(error => {
+                console.error("翻译失败:", error);
+                sendMessageToServer(receiverId, message, 'private'); // 翻译失败时发送原始消息
+            });
+    } else {
+        sendMessageToServer(receiverId, message, 'private');
+    }
 }
 
 // 发送群聊消息
 function sendGroupMessage() {
     const groupName = document.getElementById('groupName').value;
     const message = document.getElementById('groupMessage').value;
+    const translate = document.getElementById('translateGroup').checked;
+    const targetLang = document.getElementById('targetLangGroup').value;
 
     if (!groupName || !message) {
         alert("Please enter a valid group name and message.");
         return;
     }
 
-    // 发送消息到后端 API
-    fetch(`/user/groupChat?senderId=${userId}&groupName=${groupName}&message=${message}`, {
+    if (translate) {
+        fetch(`/user/translate?text=${encodeURIComponent(message)}&sourceLang=auto&targetLang=${targetLang}`, {
+            method: 'POST'
+        })
+            .then(response => response.text())
+            .then(translatedMessage => {
+                sendMessageToServer(groupName, translatedMessage, 'group');
+            })
+            .catch(error => {
+                console.error("翻译失败:", error);
+                sendMessageToServer(groupName, message, 'group'); // 翻译失败时发送原始消息
+            });
+    } else {
+        sendMessageToServer(groupName, message, 'group');
+    }
+}
+// 辅助函数：发送消息到服务器
+function sendMessageToServer(target, message, type) {
+    let url;
+    if (type === 'private') {
+        url = `/user/privateChat?senderId=${userId}&receiverId=${target}&message=${encodeURIComponent(message)}`;
+    } else {
+        url = `/user/groupChat?senderId=${userId}&groupName=${target}&message=${encodeURIComponent(message)}`;
+    }
+    fetch(url, {
         method: 'POST'
-    }).then(response => {
-        return response.text();
-    }).then(data => {
-        displayMessage(data);  // 显示发送的消息
-    });
+    })
+        .then(response => response.text())
+        .then(data => {
+            displayMessage(data); // 显示发送的消息
+        });
 }
 function showOnlineUsers() {
     fetch('/user/onlineUsers')
