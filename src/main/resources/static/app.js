@@ -205,3 +205,12 @@ function loadPrivateChatHistory(receiverId) {
 function loadGroupChatHistory(groupName) {
     loadMessageHistory("group", groupName);
 }
+function showSystemStatus() {
+    fetch('/user/system/status')
+        .then(response => response.json())
+        .then(data => {
+            const messagesDiv = document.getElementById('messages');
+            const statusMessage = `CPU Load: ${data.cpuLoad}, Total Memory: ${data.totalMemory}MB, Free Memory: ${data.freeMemory}MB`;
+            displayMessage(statusMessage);
+        });
+}

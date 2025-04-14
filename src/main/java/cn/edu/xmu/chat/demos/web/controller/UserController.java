@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,5 +104,14 @@ public class UserController {
         } catch (Exception e) {
             return "翻译失败: " + e.getMessage();
         }
+    }
+    @GetMapping("/system/status")
+    public Map<String, Object> getSystemStatus() {
+        OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
+        Map<String, Object> status = new HashMap<>();
+        status.put("cpuLoad", osBean.getSystemLoadAverage());
+        status.put("totalMemory", Runtime.getRuntime().totalMemory() / (1024 * 1024)); // MB
+        status.put("freeMemory", Runtime.getRuntime().freeMemory() / (1024 * 1024)); // MB
+        return status;
     }
 }
